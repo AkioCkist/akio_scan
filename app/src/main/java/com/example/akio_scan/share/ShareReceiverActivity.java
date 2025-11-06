@@ -41,11 +41,11 @@ public class ShareReceiverActivity extends AppCompatActivity {
         Button btnClose = findViewById(R.id.btnClose);
         Button btnOpenApp = findViewById(R.id.btnOpenApp); // optional
 
-        // Setup click-to-copy for each field
-        setupCopyOnClick(findViewById(R.id.tvBank), tvBank, "bank name");
-        setupCopyOnClick(findViewById(R.id.tvAccount), tvAccount, "account number");
+        // Setup click-to-copy for each field with the new button IDs
+        setupCopyOnClick(findViewById(R.id.bankCopyButton), tvBank, "bank name");
+        setupCopyOnClick(findViewById(R.id.accountCopyButton), tvAccount, "account number");
         setupCopyOnClick(findViewById(R.id.tvAmount), tvAmount, "amount");
-        setupCopyOnClick(findViewById(R.id.tvMessage), tvMessage, "purpose");
+        setupCopyOnClick(findViewById(R.id.messageCopyButton), tvMessage, "message");
 
         btnClose.setOnClickListener(v -> finish());
         btnOpenApp.setOnClickListener(v -> openInMainApp());
