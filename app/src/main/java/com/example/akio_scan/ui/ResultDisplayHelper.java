@@ -12,7 +12,7 @@ public class ResultDisplayHelper {
         LinearLayout bankSection = rootView.findViewById(R.id.bankSection);
         LinearLayout accountSection = rootView.findViewById(R.id.accountSection);
         LinearLayout amountSection = rootView.findViewById(R.id.amountSection);
-        LinearLayout purposeSection = rootView.findViewById(R.id.purposeSection);
+        LinearLayout purposeSection = rootView.findViewById(R.id.messageSection);
         LinearLayout currencySection = rootView.findViewById(R.id.currencySection);
         LinearLayout emptyState = rootView.findViewById(R.id.emptyState);
         
@@ -20,7 +20,7 @@ public class ResultDisplayHelper {
         TextView tvBankName = rootView.findViewById(R.id.tvBankName);
         TextView tvAccountNumber = rootView.findViewById(R.id.tvAccountNumber);
         TextView tvAmount = rootView.findViewById(R.id.tvAmount);
-        TextView tvPurpose = rootView.findViewById(R.id.tvPurpose);
+        TextView tvPurpose = rootView.findViewById(R.id.tvMessage);
         TextView tvCurrency = rootView.findViewById(R.id.tvCurrency);
         
         // Hide empty state and show data sections
@@ -77,7 +77,7 @@ public class ResultDisplayHelper {
         rootView.findViewById(R.id.bankSection).setVisibility(View.GONE);
         rootView.findViewById(R.id.accountSection).setVisibility(View.GONE);
         rootView.findViewById(R.id.amountSection).setVisibility(View.GONE);
-        rootView.findViewById(R.id.purposeSection).setVisibility(View.GONE);
+        rootView.findViewById(R.id.messageSection).setVisibility(View.GONE);
         rootView.findViewById(R.id.currencySection).setVisibility(View.GONE);
         
         // Show empty state

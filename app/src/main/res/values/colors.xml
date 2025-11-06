@@ -30,4 +30,5 @@
     <!-- Status Colors -->
     <color name="success">#34C759</color>
     <color name="warning">#FF9500</color>
+
 </resources>
