@@ -21,10 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Akio_scan">
         <activity
-            android:name=".home.home_screen"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -32,6 +28,19 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".share.ShareReceiverActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Akio_scan"
+            android:label="Scan QR from image">
+
+            <intent-filter android:label="Scan QR from image">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
 
