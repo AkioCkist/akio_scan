@@ -1,8 +1,12 @@
 package com.example.akio_scan.ui;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.akio_scan.R;
 import com.example.akio_scan.qr.QRCodeData;
 
@@ -30,6 +34,7 @@ public class ResultDisplayHelper {
         
         // Set bank name
         tvBankName.setText(data.getBankName());
+        setupCopyOnClick(bankSection, data.getBankName(), "Bank name copied");
         
         // Set account number with spacing for better readability
         String accountNumber = data.getAccountNumber();
@@ -46,11 +51,13 @@ public class ResultDisplayHelper {
         } else {
             tvAccountNumber.setText(accountNumber);
         }
+        setupCopyOnClick(accountSection, data.getAccountNumber(), "Account number copied");
         
         // Set amount
         if (data.getAmount() != null && !data.getAmount().isEmpty()) {
             amountSection.setVisibility(View.VISIBLE);
             tvAmount.setText(formatAmount(data.getAmount()) + " VND");
+            setupCopyOnClick(amountSection, data.getAmount(), "Amount copied");
         } else {
             amountSection.setVisibility(View.GONE);
         }
@@ -59,6 +66,7 @@ public class ResultDisplayHelper {
         if (data.getPurpose() != null && !data.getPurpose().isEmpty()) {
             purposeSection.setVisibility(View.VISIBLE);
             tvPurpose.setText(data.getPurpose());
+            setupCopyOnClick(purposeSection, data.getPurpose(), "Message copied");
         } else {
             purposeSection.setVisibility(View.GONE);
         }
@@ -67,9 +75,35 @@ public class ResultDisplayHelper {
         if (data.getCurrency() != null && !data.getCurrency().isEmpty()) {
             currencySection.setVisibility(View.VISIBLE);
             tvCurrency.setText(data.getCurrency());
+            setupCopyOnClick(currencySection, data.getCurrency(), "Currency copied");
         } else {
             currencySection.setVisibility(View.GONE);
         }
+    }
+    
+    private static void setupCopyOnClick(View view, String textToCopy, String successMessage) {
+        view.setOnClickListener(v -> {
+            // Animate the view with a scale effect
+            v.animate()
+                .scaleX(0.95f)
+                .scaleY(0.95f)
+                .setDuration(100)
+                .withEndAction(() -> {
+                    v.animate()
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(100)
+                        .start();
+                })
+                .start();
+            
+            // Copy to clipboard
+            Context context = v.getContext();
+            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("QR Data", textToCopy);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(context, successMessage, Toast.LENGTH_SHORT).show();
+        });
     }
     
     public static void showEmptyState(View rootView) {

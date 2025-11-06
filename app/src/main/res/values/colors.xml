@@ -12,8 +12,7 @@
     <!-- Background Colors -->
     <color name="background">#F5F7FA</color>
     <color name="surface">#FFFFFF</color>
-    <color name="surface_variant">#F8F9FB</color>
-    
+
     <!-- Text Colors -->
     <color name="text_primary">#1C1C1E</color>
     <color name="text_secondary">#6E6E73</color>

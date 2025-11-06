@@ -18,8 +18,10 @@
         android:paddingBottom="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:background="@drawable/result_item_background"
-        android:layout_marginBottom="12dp">
+        android:background="@drawable/copyable_item_background"
+        android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="40dp"
@@ -69,8 +71,10 @@
         android:paddingBottom="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:background="@drawable/result_item_background"
-        android:layout_marginBottom="12dp">
+        android:background="@drawable/copyable_item_background"
+        android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="40dp"
@@ -121,9 +125,11 @@
         android:paddingBottom="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:background="@drawable/result_item_background"
+        android:background="@drawable/copyable_item_background"
         android:layout_marginBottom="12dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="40dp"
@@ -173,9 +179,11 @@
         android:paddingBottom="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:background="@drawable/result_item_background"
+        android:background="@drawable/copyable_item_background"
         android:layout_marginBottom="12dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="40dp"
@@ -224,8 +232,10 @@
         android:paddingBottom="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:background="@drawable/result_item_background"
-        android:visibility="gone">
+        android:background="@drawable/copyable_item_background"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="40dp"

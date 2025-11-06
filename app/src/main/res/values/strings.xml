@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">akio_scan</string>
+    <string name="app_name">Akio Scan</string>
     <string name="qr_scanner_icon">QR Scanner Icon</string>
     <string name="akio_scan">Akio Scan</string>
     <string name="scan_with_camera">Scan with Camera</string>
