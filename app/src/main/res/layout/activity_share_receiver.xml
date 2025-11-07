@@ -376,34 +376,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="28dp"
-            android:gravity="center">
+            android:orientation="vertical"
+            android:layout_marginTop="28dp">
 
+            <!-- Open in Bank Button (Main Action) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenApp"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="Open in Bank"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                style="@style/Widget.Material3.Button"
+                app:backgroundTint="?attr/colorPrimary"
+                app:cornerRadius="16dp"
+                app:elevation="4dp"
+                app:icon="@drawable/bank"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Close Button (Secondary Action) -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnClose"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_weight="1"
                 android:text="Close"
                 android:textSize="16sp"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 app:cornerRadius="12dp"
-                android:layout_marginEnd="8dp"
                 app:icon="@android:drawable/ic_menu_close_clear_cancel"
-                app:iconGravity="textStart"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnOpenApp"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:text="Open in App"
-                android:textSize="16sp"
-                style="@style/Widget.Material3.Button"
-                app:cornerRadius="12dp"
-                android:layout_marginStart="8dp"
-                app:icon="@android:drawable/ic_menu_view"
                 app:iconGravity="textStart"/>
 
         </LinearLayout>

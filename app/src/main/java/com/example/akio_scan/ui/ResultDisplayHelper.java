@@ -11,7 +11,15 @@ import com.example.akio_scan.R;
 import com.example.akio_scan.qr.QRCodeData;
 
 public class ResultDisplayHelper {
-    public static void display(View rootView, QRCodeData data) {
+
+    /**
+     * Hiển thị dữ liệu QR và thiết lập chức năng "chạm để copy"
+     *
+     * @param context     Context để truy cập Clipboard và Toast
+     * @param rootView    ViewGroup chứa các section (bank, account, v.v.)
+     * @param data        Dữ liệu QR đã parse
+     */
+    public static void display(Context context, View rootView, QRCodeData data) {
         // Get all sections
         LinearLayout bankSection = rootView.findViewById(R.id.bankSection);
         LinearLayout accountSection = rootView.findViewById(R.id.accountSection);
@@ -19,102 +27,113 @@ public class ResultDisplayHelper {
         LinearLayout purposeSection = rootView.findViewById(R.id.messageSection);
         LinearLayout currencySection = rootView.findViewById(R.id.currencySection);
         LinearLayout emptyState = rootView.findViewById(R.id.emptyState);
-        
+
         // Get all TextViews
         TextView tvBankName = rootView.findViewById(R.id.tvBankName);
         TextView tvAccountNumber = rootView.findViewById(R.id.tvAccountNumber);
         TextView tvAmount = rootView.findViewById(R.id.tvAmount);
         TextView tvPurpose = rootView.findViewById(R.id.tvMessage);
         TextView tvCurrency = rootView.findViewById(R.id.tvCurrency);
-        
+
         // Hide empty state and show data sections
         emptyState.setVisibility(View.GONE);
         bankSection.setVisibility(View.VISIBLE);
         accountSection.setVisibility(View.VISIBLE);
-        
-        // Set bank name
-        tvBankName.setText(data.getBankName());
-        setupCopyOnClick(bankSection, data.getBankName(), "Bank name copied");
-        
-        // Set account number with spacing for better readability
+
+        // === Bank ===
+        String bankName = data.getBankName();
+        tvBankName.setText(bankName != null ? bankName : "--");
+        setupCopyOnClick(bankSection, bankName, "Bank name copied", context);
+
+        // === Account Number ===
         String accountNumber = data.getAccountNumber();
-        if (accountNumber != null && accountNumber.length() > 4) {
-            // Format account number: XXXX XXXX XXXX
-            StringBuilder formattedAccount = new StringBuilder();
-            for (int i = 0; i < accountNumber.length(); i++) {
-                if (i > 0 && i % 4 == 0) {
-                    formattedAccount.append(" ");
+        String displayAccount = "--";
+        if (accountNumber != null && !accountNumber.isEmpty()) {
+            if (accountNumber.length() > 4) {
+                StringBuilder formatted = new StringBuilder();
+                for (int i = 0; i < accountNumber.length(); i++) {
+                    if (i > 0 && i % 4 == 0) {
+                        formatted.append(" ");
+                    }
+                    formatted.append(accountNumber.charAt(i));
                 }
-                formattedAccount.append(accountNumber.charAt(i));
+                displayAccount = formatted.toString();
+            } else {
+                displayAccount = accountNumber;
             }
-            tvAccountNumber.setText(formattedAccount.toString());
-        } else {
-            tvAccountNumber.setText(accountNumber);
         }
-        setupCopyOnClick(accountSection, data.getAccountNumber(), "Account number copied");
-        
-        // Set amount
+        tvAccountNumber.setText(displayAccount);
+        setupCopyOnClick(accountSection, accountNumber, "Account number copied", context);
+
+        // === Amount ===
         if (data.getAmount() != null && !data.getAmount().isEmpty()) {
             amountSection.setVisibility(View.VISIBLE);
             tvAmount.setText(formatAmount(data.getAmount()) + " VND");
-            setupCopyOnClick(amountSection, data.getAmount(), "Amount copied");
+            setupCopyOnClick(amountSection, data.getAmount(), "Amount copied", context);
         } else {
             amountSection.setVisibility(View.GONE);
         }
-        
-        // Set purpose
+
+        // === Purpose ===
         if (data.getPurpose() != null && !data.getPurpose().isEmpty()) {
             purposeSection.setVisibility(View.VISIBLE);
             tvPurpose.setText(data.getPurpose());
-            setupCopyOnClick(purposeSection, data.getPurpose(), "Message copied");
+            setupCopyOnClick(purposeSection, data.getPurpose(), "Message copied", context);
         } else {
             purposeSection.setVisibility(View.GONE);
         }
-        
-        // Set currency
+
+        // === Currency ===
         if (data.getCurrency() != null && !data.getCurrency().isEmpty()) {
             currencySection.setVisibility(View.VISIBLE);
             tvCurrency.setText(data.getCurrency());
-            setupCopyOnClick(currencySection, data.getCurrency(), "Currency copied");
+            setupCopyOnClick(currencySection, data.getCurrency(), "Currency copied", context);
         } else {
             currencySection.setVisibility(View.GONE);
         }
     }
-    
-    private static void setupCopyOnClick(View view, String textToCopy, String successMessage) {
+
+    private static void setupCopyOnClick(View view, String textToCopy, String successMessage, Context context) {
+        if (view == null || textToCopy == null || textToCopy.isEmpty() || "--".equals(textToCopy)) {
+            if (view != null) {
+                view.setClickable(false);
+                view.setFocusable(false);
+            }
+            return;
+        }
+
+        view.setClickable(true);
+        view.setFocusable(true);
+
         view.setOnClickListener(v -> {
-            // Animate the view with a scale effect
+            // Optional: animation
             v.animate()
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .setDuration(100)
-                .withEndAction(() -> {
-                    v.animate()
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .setDuration(100)
-                        .start();
-                })
-                .start();
-            
+                    .scaleX(0.95f)
+                    .scaleY(0.95f)
+                    .setDuration(100)
+                    .withEndAction(() -> {
+                        v.animate()
+                                .scaleX(1.0f)
+                                .scaleY(1.0f)
+                                .setDuration(100)
+                                .start();
+                    })
+                    .start();
+
             // Copy to clipboard
-            Context context = v.getContext();
             ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("QR Data", textToCopy);
             clipboard.setPrimaryClip(clip);
             Toast.makeText(context, successMessage, Toast.LENGTH_SHORT).show();
         });
     }
-    
+
     public static void showEmptyState(View rootView) {
-        // Hide all data sections
         rootView.findViewById(R.id.bankSection).setVisibility(View.GONE);
         rootView.findViewById(R.id.accountSection).setVisibility(View.GONE);
         rootView.findViewById(R.id.amountSection).setVisibility(View.GONE);
         rootView.findViewById(R.id.messageSection).setVisibility(View.GONE);
         rootView.findViewById(R.id.currencySection).setVisibility(View.GONE);
-        
-        // Show empty state
         rootView.findViewById(R.id.emptyState).setVisibility(View.VISIBLE);
     }
 

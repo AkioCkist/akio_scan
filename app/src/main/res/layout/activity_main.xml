@@ -141,7 +141,8 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/surface">
+                app:cardBackgroundColor="@color/surface"
+                android:layout_marginBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -180,6 +181,25 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- Open in Bank Button - MOVED OUTSIDE -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenInBank"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="Open in Bank"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:backgroundTint="@color/success"
+                app:cornerRadius="16dp"
+                app:elevation="4dp"
+                app:icon="@drawable/bank"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@color/white"
+                android:layout_marginBottom="20dp"/>
 
             <!-- Bottom Spacing -->
             <View
